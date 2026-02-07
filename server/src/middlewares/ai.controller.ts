@@ -16,6 +16,7 @@ export const generateReport = async (req: Request, res: Response) => {
 
 
         console.log("yes working..")
+        console.log("abc")
 
         res.status(201).json(report);
     } catch (error) {
