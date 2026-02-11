@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import api from '../api/api';
-import { Card, Button } from '../components/UI';
-import { Search, Code2, ChevronRight, Tag, Signal } from 'lucide-react';
+import { Card } from '../components/UI';
+import { Search, Code2, ChevronRight, Signal } from 'lucide-react';
 
 const ProblemList: React.FC = () => {
     const [problems, setProblems] = useState<any[]>([]);
