@@ -13,7 +13,8 @@ import {
     XCircle,
     Clock,
     BrainCircuit,
-    Maximize2
+    Maximize2,
+    RefreshCcw
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 

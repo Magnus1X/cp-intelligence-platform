@@ -7,22 +7,10 @@ import {
     CartesianGrid,
     Tooltip,
     ResponsiveContainer,
-    BarChart,
-    Bar,
     Cell,
     PieChart,
     Pie
 } from 'recharts';
-
-interface RatingData {
-    date: string;
-    rating: number;
-}
-
-interface DistributionData {
-    name: string;
-    value: number;
-}
 
 export const PerformanceChart: React.FC<{ data: any[] }> = ({ data }) => {
     const chartData = data?.map(r => ({
