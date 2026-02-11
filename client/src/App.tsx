@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import ProblemList from './pages/ProblemList';
+import Editor from './pages/Editor';
 
 // Protected Route Component
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -41,6 +42,14 @@ function AppRoutes() {
           element={
             <ProtectedRoute>
               <ProblemList />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/editor/:id"
+          element={
+            <ProtectedRoute>
+              <Editor />
             </ProtectedRoute>
           }
         />
