@@ -6,6 +6,7 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import ProblemList from './pages/ProblemList';
 import Editor from './pages/Editor';
+import AIReport from './pages/AIReport';
 
 // Protected Route Component
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -50,6 +51,14 @@ function AppRoutes() {
           element={
             <ProtectedRoute>
               <Editor />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/ai-report/:id"
+          element={
+            <ProtectedRoute>
+              <AIReport />
             </ProtectedRoute>
           }
         />

@@ -15,7 +15,6 @@ import {
     BarChart3,
     Brain
 } from 'lucide-react';
-import { motion } from 'framer-motion';
 
 const StatCard = ({ icon: Icon, label, value, color }: any) => (
     <Card className="p-6 transition-all hover:border-primary/30 group">
