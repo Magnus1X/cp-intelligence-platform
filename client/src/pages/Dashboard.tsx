@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import api from '../api/api';
 import { Card, Button } from '../components/UI';
+import { PerformanceChart, TagsChart } from '../components/DashboardCharts';
 import {
     Trophy,
     Target,
@@ -157,12 +158,17 @@ const Dashboard: React.FC = () => {
                                     <h3 className="text-xl font-bold text-white">Performance Overview</h3>
                                 </div>
                             </div>
-                            <div className="h-[400px] flex items-center justify-center text-zinc-500 bg-dark/20 rounded-xl border border-white/5">
-                                Charts implementation coming next...
+                            <div className="h-[400px]">
+                                <PerformanceChart data={stats.ratingHistory} />
                             </div>
                         </Card>
 
                         <div className="space-y-6">
+                            <Card className="p-6">
+                                <h3 className="text-lg font-bold text-white mb-4">Topic Accuracy</h3>
+                                <TagsChart data={stats.tagStats} />
+                            </Card>
+
                             <Card className="p-6">
                                 <h3 className="text-lg font-bold text-white mb-4">Quick Actions</h3>
                                 <div className="grid grid-cols-1 gap-3">
