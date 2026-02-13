@@ -2,8 +2,34 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import api from '../api/api';
-import { Mail, Lock, UserPlus, User, AlertCircle } from 'lucide-react';
+import { Mail, Lock, User, AlertCircle, ArrowRight, Zap } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Button } from '../components/ui/button';
+
+interface AuthLayoutProps {
+    children: React.ReactNode;
+    title: string;
+    subtitle: string;
+}
+
+const AuthLayout: React.FC<AuthLayoutProps> = ({ children, title, subtitle }) => {
+    return (
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-zinc-950 to-zinc-900 p-4">
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="w-full max-w-md bg-zinc-900 border border-white/5 rounded-3xl p-8 shadow-2xl shadow-black/50"
+            >
+                <div className="text-center mb-8">
+                    <h1 className="text-4xl font-black text-white tracking-tighter mb-2">{title}</h1>
+                    <p className="text-zinc-500 font-medium">{subtitle}</p>
+                </div>
+                {children}
+            </motion.div>
+        </div>
+    );
+};
 
 const Register: React.FC = () => {
     const [name, setName] = useState('');
@@ -24,73 +50,81 @@ const Register: React.FC = () => {
             login(data.token, data.user);
             navigate('/dashboard');
         } catch (err: any) {
-            setError(err.response?.data?.message || 'Registration failed');
+            setError(err.response?.data?.message || 'Neural integration failed. Please check your inputs.');
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <div className="min-h-[calc(100vh-64px)] flex items-center justify-center px-4 py-12">
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="max-w-md w-full bg-secondary/50 backdrop-blur-xl p-8 rounded-2xl border border-white/10 shadow-2xl"
-            >
-                <div className="text-center mb-10">
-                    <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4">
-                        <UserPlus className="w-8 h-8 text-primary" />
-                    </div>
-                    <h2 className="text-3xl font-bold text-white">Join the Elite</h2>
-                    <p className="text-zinc-400 mt-2">Create your account to start tracking your performance</p>
-                </div>
+        <AuthLayout
+            title="Join the Neural Elite"
+            subtitle="Begin your journey with the world's most advanced competitive programming intelligence platform."
+        >
+            <div className="space-y-8">
+                <header>
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="inline-flex items-center gap-2 px-3 py-1 bg-accent/10 border border-accent/20 rounded-full text-accent text-[10px] font-black uppercase tracking-widest mb-4"
+                    >
+                        <Zap size={10} />
+                        New Analyst Protocol
+                    </motion.div>
+                    <h2 className="text-4xl font-black text-white tracking-tighter">Initialize Account</h2>
+                    <p className="text-zinc-500 mt-2 font-medium">Create your unique analyst profile to begin.</p>
+                </header>
 
                 {error && (
-                    <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 text-red-500 rounded-lg flex items-center gap-3">
-                        <AlertCircle className="shrink-0" size={20} />
-                        <p className="text-sm">{error}</p>
-                    </div>
+                    <motion.div
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        className="p-4 bg-red-500/10 border border-red-500/20 text-red-400 rounded-2xl flex items-center gap-3"
+                    >
+                        <AlertCircle className="shrink-0" size={18} />
+                        <p className="text-xs font-bold">{error}</p>
+                    </motion.div>
                 )}
 
                 <form onSubmit={handleSubmit} className="space-y-6">
-                    <div>
-                        <label className="block text-sm font-medium text-zinc-300 mb-2">Full Name</label>
-                        <div className="relative">
-                            <User className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" size={18} />
+                    <div className="space-y-2">
+                        <label className="text-[10px] font-black text-zinc-500 uppercase tracking-widest ml-1">Analyst Name</label>
+                        <div className="relative group">
+                            <User className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-600 transition-colors group-focus-within:text-primary" size={18} />
                             <input
                                 type="text"
                                 required
-                                className="w-full bg-dark/60 border border-white/10 rounded-xl py-3 pl-10 pr-4 text-white focus:outline-none focus:border-primary/50 transition-colors"
-                                placeholder="John Doe"
+                                className="w-full bg-white/[0.02] border border-white/5 rounded-[20px] py-4 pl-12 pr-4 text-white placeholder:text-zinc-700 focus:outline-none focus:border-primary/50 focus:bg-white/[0.05] transition-all"
+                                placeholder="Your full name"
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                             />
                         </div>
                     </div>
 
-                    <div>
-                        <label className="block text-sm font-medium text-zinc-300 mb-2">Email Address</label>
-                        <div className="relative">
-                            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" size={18} />
+                    <div className="space-y-2">
+                        <label className="text-[10px] font-black text-zinc-500 uppercase tracking-widest ml-1">Primary Email</label>
+                        <div className="relative group">
+                            <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-600 transition-colors group-focus-within:text-primary" size={18} />
                             <input
                                 type="email"
                                 required
-                                className="w-full bg-dark/60 border border-white/10 rounded-xl py-3 pl-10 pr-4 text-white focus:outline-none focus:border-primary/50 transition-colors"
-                                placeholder="you@example.com"
+                                className="w-full bg-white/[0.02] border border-white/5 rounded-[20px] py-4 pl-12 pr-4 text-white placeholder:text-zinc-700 focus:outline-none focus:border-primary/50 focus:bg-white/[0.05] transition-all"
+                                placeholder="you@nebula.io"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                             />
                         </div>
                     </div>
 
-                    <div>
-                        <label className="block text-sm font-medium text-zinc-300 mb-2">Password</label>
-                        <div className="relative">
-                            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" size={18} />
+                    <div className="space-y-2">
+                        <label className="text-[10px] font-black text-zinc-500 uppercase tracking-widest ml-1">Access Key</label>
+                        <div className="relative group">
+                            <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-600 transition-colors group-focus-within:text-primary" size={18} />
                             <input
                                 type="password"
                                 required
-                                className="w-full bg-dark/60 border border-white/10 rounded-xl py-3 pl-10 pr-4 text-white focus:outline-none focus:border-primary/50 transition-colors"
+                                className="w-full bg-white/[0.02] border border-white/5 rounded-[20px] py-4 pl-12 pr-4 text-white placeholder:text-zinc-700 focus:outline-none focus:border-primary/50 focus:bg-white/[0.05] transition-all"
                                 placeholder="••••••••"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
@@ -98,26 +132,31 @@ const Register: React.FC = () => {
                         </div>
                     </div>
 
-                    <button
+                    <Button
                         type="submit"
                         disabled={loading}
-                        className="w-full bg-primary hover:bg-primary/90 text-black font-bold py-3 rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed group flex items-center justify-center gap-2"
+                        className="w-full h-14 bg-white hover:bg-zinc-200 text-black font-black rounded-[20px] shadow-xl shadow-white/5 group relative overflow-hidden transition-all active:scale-[0.98]"
                     >
-                        {loading ? 'Creating Account...' : (
-                            <>
-                                Create Account
-                                <UserPlus size={18} className="group-hover:translate-x-1 transition-transform" />
-                            </>
-                        )}
-                    </button>
+                        <span className="relative z-10 flex items-center justify-center gap-2">
+                            {loading ? 'Initializing...' : (
+                                <>
+                                    Create Identity
+                                    <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                                </>
+                            )}
+                        </span>
+                        <div className="absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:left-full transition-all duration-500" />
+                    </Button>
                 </form>
 
-                <p className="mt-8 text-center text-zinc-400">
-                    Already have an account?{' '}
-                    <Link to="/login" className="text-primary hover:text-primary/80 font-medium">Sign in</Link>
-                </p>
-            </motion.div>
-        </div>
+                <div className="pt-8 border-t border-white/5 text-center">
+                    <p className="text-zinc-500 text-sm font-medium">
+                        Already initialized?{' '}
+                        <Link to="/login" className="text-white hover:text-primary font-bold transition-colors ml-1">Sign In</Link>
+                    </p>
+                </div>
+            </div>
+        </AuthLayout>
     );
 };
 

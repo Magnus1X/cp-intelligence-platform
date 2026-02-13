@@ -1,4 +1,6 @@
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+
 import { AuthProvider, useAuth } from './context/AuthContext';
 import Navbar from './components/Navbar';
 import Login from './pages/Login';
@@ -7,6 +9,10 @@ import Dashboard from './pages/Dashboard';
 import ProblemList from './pages/ProblemList';
 import Editor from './pages/Editor';
 import AIReport from './pages/AIReport';
+import LandingPage from './pages/LandingPage';
+import CodeAnalyzer from './pages/CodeAnalyzer';
+import CPJourney from './pages/CPJourney';
+
 
 // Protected Route Component
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -25,48 +31,80 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 
 function AppRoutes() {
   return (
-    <div className="min-h-screen bg-dark text-white selection:bg-primary/30 selection:text-primary">
-      <Navbar />
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
+    <Routes>
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/login" element={<div className="min-h-screen bg-dark text-white"><Navbar /><Login /></div>} />
+      <Route path="/register" element={<div className="min-h-screen bg-dark text-white"><Navbar /><Register /></div>} />
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <div className="min-h-screen bg-dark text-white">
+              <Navbar />
               <Dashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/problems"
-          element={
-            <ProtectedRoute>
+            </div>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/problems"
+        element={
+          <ProtectedRoute>
+            <div className="min-h-screen bg-dark text-white">
+              <Navbar />
               <ProblemList />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/editor/:id"
-          element={
-            <ProtectedRoute>
+            </div>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/editor/:id"
+        element={
+          <ProtectedRoute>
+            <div className="min-h-screen bg-dark text-white">
+              <Navbar />
               <Editor />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/ai-report/:id"
-          element={
-            <ProtectedRoute>
+            </div>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/ai-report/:id"
+        element={
+          <ProtectedRoute>
+            <div className="min-h-screen bg-dark text-white">
+              <Navbar />
               <AIReport />
-            </ProtectedRoute>
-          }
-        />
-        <Route path="/" element={<Navigate to="/dashboard" />} />
-      </Routes>
-    </div>
+            </div>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/analyzer"
+        element={
+          <ProtectedRoute>
+            <div className="min-h-screen bg-dark text-white">
+              <Navbar />
+              <CodeAnalyzer />
+            </div>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/journey"
+        element={
+          <ProtectedRoute>
+            <div className="min-h-screen bg-dark text-white">
+              <Navbar />
+              <CPJourney />
+            </div>
+          </ProtectedRoute>
+        }
+      />
+    </Routes>
   );
 }
+
 
 function App() {
   return (

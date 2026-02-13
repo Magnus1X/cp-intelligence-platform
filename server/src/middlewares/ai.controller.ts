@@ -14,6 +14,9 @@ export const generateReport = async (req: Request, res: Response) => {
             basedOnSnapshotId,
         });
 
+
+        console.log("yes working..")
+
         res.status(201).json(report);
     } catch (error) {
         res.status(500).json({ message: "Failed to generate report" });
