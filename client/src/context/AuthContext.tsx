@@ -32,6 +32,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 localStorage.removeItem('token');
                 localStorage.removeItem('user');
             }
+        } else {
+            // Provide a default demo user to remove the barrier
+            setUser({
+                id: 'demo-123',
+                name: 'Elite Guest',
+                email: 'guest@cpintel.com',
+                handle: 'GuestMaster'
+            });
         }
         setLoading(false);
     }, []);

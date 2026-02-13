@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Terminal, LogOut, LayoutDashboard } from 'lucide-react';
+import { Terminal, LogOut, LayoutDashboard, Sparkles, Activity } from 'lucide-react';
 
 const Navbar: React.FC = () => {
     const { user, logout } = useAuth();
@@ -20,9 +20,17 @@ const Navbar: React.FC = () => {
                     <div className="flex items-center gap-6">
                         {user ? (
                             <>
-                                <Link to="/dashboard" className="text-zinc-400 hover:text-primary flex items-center gap-2 transition-colors">
-                                    <LayoutDashboard size={20} />
-                                    <span>Dashboard</span>
+                                <Link to="/dashboard" className="text-zinc-400 hover:text-primary flex items-center gap-2 transition-colors font-medium">
+                                    <LayoutDashboard size={18} />
+                                    <span>Intel</span>
+                                </Link>
+                                <Link to="/analyzer" className="text-zinc-400 hover:text-primary flex items-center gap-2 transition-colors font-medium">
+                                    <Sparkles size={18} />
+                                    <span>DeepScan</span>
+                                </Link>
+                                <Link to="/journey" className="text-zinc-400 hover:text-primary flex items-center gap-2 transition-colors font-medium">
+                                    <Activity size={18} />
+                                    <span>Journey</span>
                                 </Link>
                                 <div className="flex items-center gap-4 pl-4 border-l border-white/10">
                                     <span className="text-zinc-300 font-medium">{user.name}</span>
